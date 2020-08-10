@@ -6,7 +6,13 @@ import * as Next from "next";
 
 import { Item as ItemInterface } from "../../interfaces/item";
 
-import { Container, Header as H, Button, Image } from "semantic-ui-react";
+import {
+  Container,
+  Header as H,
+  Button,
+  Image,
+  Label,
+} from "semantic-ui-react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -42,34 +48,35 @@ const ItemHeader: React.FC<ItemInterface> = (item) => {
         </div>
         <div className="header-description">{item.description}</div>
         <div className="header-social-button">
-          <a
-            href={urlTwitter}
-            target="_blank"
-            rel="noreferrer"
-            style={{ margin: "0 .25em 0 0" }}
-          >
-            <FontAwesomeIcon icon={faTwitter} size="2x" color="#1da1f2" />
-          </a>
-          <a
-            href={urlFacebook}
-            target="_blank"
-            rel="noreferrer"
-            style={{ margin: "0 .25em 0 0" }}
-          >
-            <FontAwesomeIcon
-              icon={faFacebookSquare}
-              size="2x"
-              color="#4267B2"
-            />
-          </a>
-          <a
-            href={urlLine}
-            target="_blank"
-            rel="noreferrer"
-            style={{ margin: "0 .25em 0 0" }}
-          >
-            <FontAwesomeIcon icon={faLine} size="2x" color="#00c300" />
-          </a>
+          <Label.Group size="big">
+            <Label
+              circular
+              as="a"
+              href={urlTwitter}
+              target="_black"
+              style={{ background: "none" }}
+            >
+              <FontAwesomeIcon icon={faTwitter} color="#1da1f2" />
+            </Label>
+            <Label
+              circular
+              as="a"
+              href={urlFacebook}
+              target="_black"
+              style={{ background: "none" }}
+            >
+              <FontAwesomeIcon icon={faFacebookSquare} color="#4267B2" />
+            </Label>
+            <Label
+              circular
+              as="a"
+              href={urlLine}
+              target="_black"
+              style={{ background: "none" }}
+            >
+              <FontAwesomeIcon icon={faLine} color="#00c300" />
+            </Label>
+          </Label.Group>
         </div>
         <div className="header-download-button">
           {item.content.map((content) => (
