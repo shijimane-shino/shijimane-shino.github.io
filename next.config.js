@@ -16,6 +16,9 @@ module.exports = {
       },
       "/terms-of-use": {
         page: "/terms-of-use"
+      },
+      "/404": {
+        page: "/404"
       }
     };
 
