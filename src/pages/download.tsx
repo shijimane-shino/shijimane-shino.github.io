@@ -39,11 +39,9 @@ const Download: Next.NextPage<{
 );
 
 export const getStaticProps: Next.GetStaticProps = async (context) => {
-  const data = await getAllItems();
-
   return {
     props: {
-      items: data,
+      items: await getAllItems(),
     },
   };
 };

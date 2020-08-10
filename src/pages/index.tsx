@@ -5,13 +5,13 @@ import Link from "next/link";
 
 import { Header as H, Menu, Button, Image } from "semantic-ui-react";
 
-import { GraphQLClient } from "graphql-request";
-
 import { Pickup as PickupInterface } from "../interfaces/pickup";
 
 import { MenuList } from "../components/header";
 import Footer from "../components/footer";
 import Layout from "../components/layout";
+
+import { getAllPickups } from "../lib/graphcms";
 
 const TopHeader: React.FC<{
   pickups: PickupInterface[];
@@ -132,26 +132,11 @@ const Index: Next.NextPage<{
   </Layout>
 );
 
-Index.getInitialProps = async () => {
-  const graphcms = new GraphQLClient(
-    "https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master"
-  );
-
-  const data = await graphcms.request<{ pickups: PickupInterface[] }>(`
-    query allPickups {
-      pickups(orderBy: updatedAt_DESC) {
-        id
-        createdAt
-        updatedAt
-        publishedAt
-        title
-        url
-      }
-    }
-  `);
-
+export const getStaticProps: Next.GetStaticProps = async (context) => {
   return {
-    pickups: data.pickups,
+    props: {
+      pickups: await getAllPickups(),
+    },
   };
 };
 

@@ -1,6 +1,9 @@
 import { GraphQLClient } from "graphql-request";
 
+import { Pickup as PickupInterface } from "../interfaces/pickup";
 import { Item as ItemInterface } from "../interfaces/item";
+import { Credit as CreditInterface } from "../interfaces/credit";
+import { TermsOfUse as TermsOfUseInterface } from "../interfaces/termsOfUse";
 
 const doRequest = async <T>(query: string) => {
   const graphcms = new GraphQLClient(
@@ -8,6 +11,25 @@ const doRequest = async <T>(query: string) => {
   );
 
   return await graphcms.request<T>(query);
+};
+
+export const getAllPickups = async (): Promise<PickupInterface[]> => {
+  const data = await doRequest<{
+    pickups: PickupInterface[];
+  }>(`
+    query allPickups {
+      pickups(orderBy: updatedAt_DESC) {
+        id
+        createdAt
+        updatedAt
+        publishedAt
+        title
+        url
+      }
+    }
+  `);
+
+  return data.pickups;
 };
 
 export const getAllItems = async (): Promise<ItemInterface[]> => {
@@ -78,4 +100,99 @@ export const getItem = async (id: string): Promise<ItemInterface | null> => {
   `);
 
   return data.item;
+};
+
+export const getAllAuthors = async (): Promise<CreditInterface[]> => {
+  const data = await doRequest<{
+    credits: CreditInterface[];
+  }>(`
+    query allAdmin {
+      credits(orderBy: id_ASC, where: {author: true}) {
+        id
+        createdAt
+        updatedAt
+        publishedAt
+        author
+        name
+        avatar
+        work {
+          id
+          createdAt
+          updatedAt
+          publishedAt
+          name
+        }
+        link {
+          id
+          createdAt
+          updatedAt
+          publishedAt
+          name
+          url
+          category
+        }
+      }
+    }
+  `);
+
+  return data.credits;
+};
+
+export const getAllStaffs = async (): Promise<CreditInterface[]> => {
+  const data = await doRequest<{
+    credits: CreditInterface[];
+  }>(`
+    query allAdmin {
+      credits(orderBy: id_ASC, where: {author: false}) {
+        id
+        createdAt
+        updatedAt
+        publishedAt
+        author
+        name
+        avatar
+        work {
+          id
+          createdAt
+          updatedAt
+          publishedAt
+          name
+        }
+        link {
+          id
+          createdAt
+          updatedAt
+          publishedAt
+          name
+          url
+          category
+        }
+      }
+    }
+  `);
+
+  return data.credits;
+};
+
+export const getAllTermsOfUses = async (): Promise<TermsOfUseInterface[]> => {
+  const data = await doRequest<{
+    termsOfUses: TermsOfUseInterface[];
+  }>(`
+    query allTermsOfUse {
+      termsOfUses(orderBy: sort_ASC) {
+        id
+        createdAt
+        updatedAt
+        publishedAt
+        sort
+        title
+        body {
+          html
+          markdown
+        }
+      }
+    }
+  `);
+
+  return data.termsOfUses;
 };

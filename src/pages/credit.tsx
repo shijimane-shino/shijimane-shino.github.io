@@ -4,23 +4,23 @@ import * as Next from "next";
 
 import { Container, Grid } from "semantic-ui-react";
 
-import { GraphQLClient } from "graphql-request";
-
 import { Credit as CreditInterface } from "../interfaces/credit";
 
 import Layout from "../components/layout";
 import CreditCard from "../components/creditCard";
 
+import { getAllAuthors, getAllStaffs } from "../lib/graphcms";
+
 const Credit: Next.NextPage<{
-  admins: CreditInterface[];
+  authors: CreditInterface[];
   staffs: CreditInterface[];
-}> = ({ admins, staffs }) => (
+}> = ({ authors, staffs }) => (
   <Layout title="Credit">
     <Container>
       <Grid relaxed columns={1}>
-        {admins.map((admin) => (
-          <Grid.Column key={admin.id}>
-            <CreditCard {...admin} />
+        {authors.map((author) => (
+          <Grid.Column key={author.id}>
+            <CreditCard {...author} />
           </Grid.Column>
         ))}
       </Grid>
@@ -35,74 +35,12 @@ const Credit: Next.NextPage<{
   </Layout>
 );
 
-Credit.getInitialProps = async () => {
-  const graphcms = new GraphQLClient(
-    "https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master"
-  );
-
-  const admin = await graphcms.request<{ credits: CreditInterface[] }>(`
-    query allAdmin {
-      credits(orderBy: id_ASC, where: {author: true}) {
-        id
-        createdAt
-        updatedAt
-        publishedAt
-        author
-        name
-        avatar
-        work {
-          id
-          createdAt
-          updatedAt
-          publishedAt
-          name
-        }
-        link {
-          id
-          createdAt
-          updatedAt
-          publishedAt
-          name
-          url
-          category
-        }
-      }
-    }
-  `);
-
-  const staff = await graphcms.request<{ credits: CreditInterface[] }>(`
-    query allAdmin {
-      credits(orderBy: id_ASC, where: {author: false}) {
-        id
-        createdAt
-        updatedAt
-        publishedAt
-        author
-        name
-        avatar
-        work {
-          id
-          createdAt
-          updatedAt
-          publishedAt
-          name
-        }
-        link {
-          id
-          createdAt
-          updatedAt
-          publishedAt
-          name
-          url
-          category
-        }
-      }
-    }
-  `);
-
+export const getStaticProps: Next.GetStaticProps = async (context) => {
   return {
-    admins: admin.credits,
-    staffs: staff.credits,
+    props: {
+      authors: await getAllAuthors(),
+      staffs: await getAllStaffs(),
+    },
   };
 };
 
