@@ -1,3 +1,5 @@
+
+
 module.exports = {
   exportTrailingSlash: true,
 
@@ -17,16 +19,47 @@ module.exports = {
       }
     };
 
-    //const fs = require("fs");
-    //const list = JSON.parse(fs.readFileSync(`./data/items/config.json`, "utf8"));
-    //for (const itemId of list.items) {
-    //  res[`/items/${itemId}`] = {
-    //    page: "/items/[id]",
-    //    query: {
-    //      id: itemId
-    //    }
-    //  };
-    //}
+
+    const { request, gql } = require("graphql-request");
+    const endpoint = "https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master";
+    const query = gql`
+      query allItems {
+        items(orderBy: updatedAt_DESC) {
+          id
+          createdAt
+          updatedAt
+          publishedAt
+          title
+          category
+          description
+          thumbnail {
+            url
+          }
+          body {
+            html
+            markdown
+          }
+          content(orderBy: updatedAt_DESC) {
+            id
+            createdAt
+            updatedAt
+            publishedAt
+            title
+            url
+          }
+        }
+      }
+    `;
+
+    const data = await request(endpoint, query);
+    for (const item of data.items) {
+      res[`/items/${item.id}`] = {
+        page: "/items/[id]",
+        query: {
+          id: item.id
+        }
+      };
+    }
 
     return res;
   },
