@@ -1,8 +1,6 @@
 import * as React from "react";
 import * as Next from "next";
 
-import { GraphQLClient } from "graphql-request";
-
 import { Container } from "semantic-ui-react";
 
 import { Item as ItemInterface } from "../interfaces/item";
@@ -42,6 +40,7 @@ const Download: Next.NextPage<{
 
 export const getStaticProps: Next.GetStaticProps = async (context) => {
   const data = await getAllItems();
+
   return {
     props: {
       items: data,

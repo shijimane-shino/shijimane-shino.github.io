@@ -6,8 +6,6 @@ import * as Next from "next";
 
 import { Item as ItemInterface } from "../../interfaces/item";
 
-import { GraphQLClient } from "graphql-request";
-
 import { Container, Header as H, Button, Image } from "semantic-ui-react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +18,8 @@ import {
 import Header from "../../components/header";
 import Layout from "../../components/layout";
 import Markdown from "../../components/markdown";
+
+import { getAllItems, getItem } from "../../lib/graphcms";
 
 const ItemHeader: React.FC<ItemInterface> = (item) => {
   const urlTwitter = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -162,42 +162,27 @@ const Item: Next.NextPage<{
   );
 };
 
-Item.getInitialProps = async (context: Next.NextPageContext): Promise<any> => {
-  // const { id } = context.query;
-  // const graphcms = new GraphQLClient(process.env.GRAPHCMS_URL);
-
-  // const data = await graphcms.request<{ item: ItemInterface | null }>(`
-  //  query Item {
-  //    item(where: {id: "${id}"}) {
-  //      id
-  //      createdAt
-  //      updatedAt
-  //      publishedAt
-  //      title
-  //      category
-  //      description
-  //      thumbnail {
-  //        url
-  //      }
-  //      body {
-  //        html
-  //        markdown
-  //      }
-  //      content(orderBy: updatedAt_DESC) {
-  //        id
-  //        createdAt
-  //        updatedAt
-  //        publishedAt
-  //        title
-  //        url
-  //      }
-  //    }
-  //  }
-  // `);
+export const getStaticProps: Next.GetStaticProps = async (context) => {
+  const id: string | undefined = context.params?.id as string;
+  const data = id ? await getItem(id) : null;
 
   return {
-    // item: data.item,
-    item: null,
+    props: {
+      item: data,
+    },
+  };
+};
+
+export const getStaticPaths: Next.GetStaticPaths = async (context) => {
+  const data = await getAllItems();
+
+  return {
+    paths: data.map(({ id }) => ({
+      params: {
+        id,
+      },
+    })),
+    fallback: false,
   };
 };
 
