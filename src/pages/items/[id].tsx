@@ -173,7 +173,7 @@ export const getStaticProps: Next.GetStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths: Next.GetStaticPaths = async (context) => {
+export const getStaticPaths: Next.GetStaticPaths = async () => {
   const data = await getAllItems();
 
   return {
