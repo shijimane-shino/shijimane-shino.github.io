@@ -39,7 +39,7 @@ const Download: Next.NextPage<{
 );
 
 Download.getInitialProps = async (context: Next.NextPageContext): Promise<any> => {
-  const graphcms = new GraphQLClient("https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master");
+  const graphcms = new GraphQLClient(process.env.GRAPHCMS_URL);
 
   const data = await graphcms.request<{ items: ItemInterface[] }>(`
     query allItems {

@@ -1,5 +1,9 @@
 import * as React from "react";
+
+import { useRouter } from "next/router";
+import ErrorPage from "next/error";
 import * as Next from "next";
+
 import { Item as ItemInterface } from "../../interfaces/item";
 
 import { GraphQLClient } from "graphql-request";
@@ -13,7 +17,6 @@ import {
   faLine,
 } from "@fortawesome/free-brands-svg-icons";
 
-import Error from "../404";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
 import Markdown from "../../components/markdown";
@@ -135,25 +138,33 @@ const BackgroundImage: React.FC<{
 const Item: Next.NextPage<{
   item: ItemInterface | null;
 }> = ({ item }) => {
+  const router = useRouter();
+
   if (!item) {
-    return <Error />;
+    return <ErrorPage statusCode={404} />
   }
 
   return (
     <Layout title={item.title} isHeader={false}>
       <Container>
-        {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
-        <Header title={null} />
-        <ItemHeader {...item} />
-        <Markdown md={item.body.markdown} />
+        {router.isFallback ? (
+          <div>Loading…</div>
+        ) : (
+            <>
+              {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
+              <Header title={null} />
+              <ItemHeader {...item} />
+              <Markdown md={item.body.markdown} />
+            </>
+          )}
       </Container>
     </Layout>
   );
 };
 
-Item.getInitialProps = async ({ query }: Next.NextPageContext) => {
-  const id: string = query.id as string;
-  const graphcms = new GraphQLClient("https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master");
+Item.getInitialProps = async (context: Next.NextPageContext): Promise<any> => {
+  const { id } = context.query;
+  const graphcms = new GraphQLClient(process.env.GRAPHCMS_URL);
 
   const data = await graphcms.request<{ item: ItemInterface | null }>(`
     query Item {
