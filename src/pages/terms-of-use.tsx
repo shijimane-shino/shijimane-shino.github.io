@@ -25,7 +25,9 @@ const TermsOfUse: Next.NextPage<{
 );
 
 TermsOfUse.getInitialProps = async () => {
-  const graphcms = new GraphQLClient("https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master");
+  const graphcms = new GraphQLClient(
+    "https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master"
+  );
 
   const data = await graphcms.request<{ termsOfUses: TermsOfUseInterface[] }>(`
     query allTermsOfUse {

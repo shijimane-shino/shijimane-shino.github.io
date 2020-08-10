@@ -10,6 +10,8 @@ import { Item as ItemInterface } from "../interfaces/item";
 import Layout from "../components/layout";
 import ItemCard from "../components/itemCard";
 
+import { getAllItems } from "../lib/graphcms";
+
 const Download: Next.NextPage<{
   items: ItemInterface[];
 }> = ({ items }) => (
@@ -38,40 +40,12 @@ const Download: Next.NextPage<{
   </Layout>
 );
 
-Download.getInitialProps = async (context: Next.NextPageContext): Promise<any> => {
-  const graphcms = new GraphQLClient(process.env.GRAPHCMS_URL);
-
-  const data = await graphcms.request<{ items: ItemInterface[] }>(`
-    query allItems {
-      items(orderBy: updatedAt_DESC) {
-        id
-        createdAt
-        updatedAt
-        publishedAt
-        title
-        category
-        description
-        thumbnail {
-          url
-        }
-        body {
-          html
-          markdown
-        }
-        content(orderBy: updatedAt_DESC) {
-          id
-          createdAt
-          updatedAt
-          publishedAt
-          title
-          url
-        }
-      }
-    }
-  `);
-
+export const getStaticProps: Next.GetStaticProps = async (context) => {
+  const data = await getAllItems();
   return {
-    items: data.items,
+    props: {
+      items: data,
+    },
   };
 };
 

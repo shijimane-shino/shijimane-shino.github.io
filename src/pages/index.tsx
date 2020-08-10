@@ -133,7 +133,9 @@ const Index: Next.NextPage<{
 );
 
 Index.getInitialProps = async () => {
-  const graphcms = new GraphQLClient("https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master");
+  const graphcms = new GraphQLClient(
+    "https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master"
+  );
 
   const data = await graphcms.request<{ pickups: PickupInterface[] }>(`
     query allPickups {

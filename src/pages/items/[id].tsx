@@ -141,7 +141,7 @@ const Item: Next.NextPage<{
   const router = useRouter();
 
   if (!item) {
-    return <ErrorPage statusCode={404} />
+    return <ErrorPage statusCode={404} />;
   }
 
   return (
@@ -150,53 +150,54 @@ const Item: Next.NextPage<{
         {router.isFallback ? (
           <div>Loading…</div>
         ) : (
-            <>
-              {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
-              <Header title={null} />
-              <ItemHeader {...item} />
-              <Markdown md={item.body.markdown} />
-            </>
-          )}
+          <>
+            {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
+            <Header title={null} />
+            <ItemHeader {...item} />
+            <Markdown md={item.body.markdown} />
+          </>
+        )}
       </Container>
     </Layout>
   );
 };
 
 Item.getInitialProps = async (context: Next.NextPageContext): Promise<any> => {
-  const { id } = context.query;
-  const graphcms = new GraphQLClient(process.env.GRAPHCMS_URL);
+  // const { id } = context.query;
+  // const graphcms = new GraphQLClient(process.env.GRAPHCMS_URL);
 
-  const data = await graphcms.request<{ item: ItemInterface | null }>(`
-    query Item {
-      item(where: {id: "${id}"}) {
-        id
-        createdAt
-        updatedAt
-        publishedAt
-        title
-        category
-        description
-        thumbnail {
-          url
-        }
-        body {
-          html
-          markdown
-        }
-        content(orderBy: updatedAt_DESC) {
-          id
-          createdAt
-          updatedAt
-          publishedAt
-          title
-          url
-        }
-      }
-    }
-  `);
+  // const data = await graphcms.request<{ item: ItemInterface | null }>(`
+  //  query Item {
+  //    item(where: {id: "${id}"}) {
+  //      id
+  //      createdAt
+  //      updatedAt
+  //      publishedAt
+  //      title
+  //      category
+  //      description
+  //      thumbnail {
+  //        url
+  //      }
+  //      body {
+  //        html
+  //        markdown
+  //      }
+  //      content(orderBy: updatedAt_DESC) {
+  //        id
+  //        createdAt
+  //        updatedAt
+  //        publishedAt
+  //        title
+  //        url
+  //      }
+  //    }
+  //  }
+  // `);
 
   return {
-    item: data.item,
+    // item: data.item,
+    item: null,
   };
 };
 

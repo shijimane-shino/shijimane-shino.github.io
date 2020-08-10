@@ -75,7 +75,6 @@ module.exports = {
     AUTHOR: "東雲",
     URL: "http://shijimane-shino.github.io",
     THEME_COLOR: "#01a982",
-    TRACKING_ID: "UA-165365751-1",
-    GRAPHCMS_URL: "https://api-ap-northeast-1.graphcms.com/v2/ckdlq6xkqme3z01za6t2fcp7m/master"
+    TRACKING_ID: "UA-165365751-1"
   }
 }
