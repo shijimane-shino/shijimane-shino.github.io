@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Card, Image, Label } from "semantic-ui-react";
+import { Card, Image, Label, Button } from "semantic-ui-react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
@@ -48,20 +48,18 @@ const WorkLabelList: React.FC<{
 const LinkLabelList: React.FC<{
   links: CreditLinkInterface[];
 }> = ({ links }) => (
-  <Label.Group size="big">
+  <>
     {links.map((link) => (
-      <Label
-        key={link.id}
+      <Button
         circular
-        as="a"
+        key={link.id}
+        title={link.name}
         href={link.url}
         target="_black"
-        style={{ background: "none" }}
-      >
-        {iconList[link.category]}
-      </Label>
+        icon={iconList[link.category]}
+      />
     ))}
-  </Label.Group>
+  </>
 );
 
 const CreditCard: React.FC<CreditInterface> = (props) => (

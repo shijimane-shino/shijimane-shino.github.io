@@ -50,7 +50,7 @@ const TopHeader: React.FC<{
         </div>
         <div className="pickup-list">
           {pickups.map((pickup) => (
-            <Button key={pickup.id} href={pickup.url} primary>
+            <Button key={pickup.id} href={pickup.url}>
               {pickup.title}
             </Button>
           ))}

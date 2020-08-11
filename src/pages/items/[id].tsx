@@ -6,13 +6,7 @@ import * as Next from "next";
 
 import { Item as ItemInterface } from "../../interfaces/item";
 
-import {
-  Container,
-  Header as H,
-  Button,
-  Image,
-  Label,
-} from "semantic-ui-react";
+import { Container, Header as H, Button, Image } from "semantic-ui-react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -27,93 +21,86 @@ import Markdown from "../../components/markdown";
 
 import { getAllItems, getItem } from "../../lib/graphcms";
 
-const ItemHeader: React.FC<ItemInterface> = (item) => {
-  const urlTwitter = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    item.title
-  )}&url=${encodeURIComponent(process.env.URL + "/items/" + item.id)}`;
-
-  const urlFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-    process.env.URL + "/items/" + item.id
-  )}`;
-
-  const urlLine = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
-    process.env.URL + "/items/" + item.id
-  )}`;
+const SocialButton: React.FC<ItemInterface> = (item) => {
+  const socialList = [
+    {
+      type: "twitter",
+      icon: <FontAwesomeIcon icon={faTwitter} />,
+      url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+        item.title
+      )}&url=${encodeURIComponent(process.env.URL + "/items/" + item.id)}`,
+    },
+    {
+      type: "facebook",
+      icon: <FontAwesomeIcon icon={faFacebookSquare} />,
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        process.env.URL + "/items/" + item.id
+      )}`,
+    },
+    {
+      type: "line",
+      icon: <FontAwesomeIcon icon={faLine} />,
+      url: `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
+        process.env.URL + "/items/" + item.id
+      )}`,
+    },
+  ];
 
   return (
     <>
-      <div className="header-container">
-        <div className="header-title">
-          <H as="h1">{item.title}</H>
-        </div>
-        <div className="header-description">{item.description}</div>
-        <div className="header-social-button">
-          <Label.Group size="big">
-            <Label
-              circular
-              as="a"
-              href={urlTwitter}
-              target="_black"
-              style={{ background: "none" }}
-            >
-              <FontAwesomeIcon icon={faTwitter} color="#1da1f2" />
-            </Label>
-            <Label
-              circular
-              as="a"
-              href={urlFacebook}
-              target="_black"
-              style={{ background: "none" }}
-            >
-              <FontAwesomeIcon icon={faFacebookSquare} color="#4267B2" />
-            </Label>
-            <Label
-              circular
-              as="a"
-              href={urlLine}
-              target="_black"
-              style={{ background: "none" }}
-            >
-              <FontAwesomeIcon icon={faLine} color="#00c300" />
-            </Label>
-          </Label.Group>
-        </div>
-        <div className="header-download-button">
-          {item.content.map((content) => (
-            <Button key={content.id} href={content.url} target="_blank" primary>
-              {content.title}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <style jsx>{`
-        .header-container {
-          min-height: 45vh;
-          margin: 0 0 1em;
-        }
-
-        .header-title {
-          width: 75%;
-          margin: 0 0 1em;
-          padding: 20vh 0 0;
-        }
-
-        .header-description {
-          white-space: pre-wrap;
-          margin: 0 0 1em;
-        }
-
-        .header-download-button {
-          margin 0 0 .5em;
-        }
-
-        .header-social-button {
-          margin 0 0 .5em;
-        }
-      `}</style>
+      {socialList.map((social) => (
+        <Button
+          circular
+          key={social.type}
+          href={social.url}
+          target="_black"
+          icon={social.icon}
+        />
+      ))}
     </>
   );
 };
+
+const DownloadButton: React.FC<ItemInterface> = (item) => (
+  <>
+    {item.content.map((content) => (
+      <Button key={content.id} href={content.url} target="_blank">
+        {content.title}
+      </Button>
+    ))}
+  </>
+);
+
+const ItemHeader: React.FC<ItemInterface> = (item) => (
+  <>
+    <div className="header-container">
+      <H as="h1">{item.title}</H>
+      <div className="header-description">{item.description}</div>
+      <div className="header-social-button">
+        <SocialButton {...item} />
+      </div>
+      <div className="header-download-button">
+        <DownloadButton {...item} />
+      </div>
+    </div>
+    <style jsx>{`
+      .header-container {
+        min-height: 45vh;
+        margin: 0 0 1em;
+        padding: 20vh 0 0;
+      }
+
+      .header-description {
+        white-space: pre-wrap;
+        margin: 0 0 1em;
+      }
+
+      .header-social-button {
+        margin: 0 0 1em;
+      }
+    `}</style>
+  </>
+);
 
 const BackgroundImage: React.FC<{
   url: string;

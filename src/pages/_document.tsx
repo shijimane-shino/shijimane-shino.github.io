@@ -3,13 +3,7 @@ import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { mediaStyles } from "../components/media";
 
-/**
- *
- */
 export default class CustomDocument extends Document {
-  /**
-   *
-   */
   render() {
     return (
       <Html lang="ja-JP">
