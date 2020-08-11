@@ -43,10 +43,10 @@ const HeaderMobile: React.FC<{
 
   return (
     <>
-      <Menu text size="large" style={{ margin: 0, height: "10rem" }}>
+      <Menu text size="large" style={{ margin: "0 1em", height: "10rem" }}>
         <Container>
           {title && (
-            <H as="h1" style={{ margin: "0 1em", lineHeight: "10rem" }}>
+            <H as="h1" style={{ margin: 0, lineHeight: "10rem" }}>
               {title}
             </H>
           )}
