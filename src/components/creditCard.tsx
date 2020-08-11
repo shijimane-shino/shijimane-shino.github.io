@@ -55,7 +55,8 @@ const LinkLabelList: React.FC<{
         key={link.id}
         title={link.name}
         href={link.url}
-        target="_black"
+        target="_blank"
+        rel="noopener noreferrer"
         icon={iconList[link.category]}
       />
     ))}

@@ -53,7 +53,8 @@ const SocialButton: React.FC<ItemInterface> = (item) => {
           circular
           key={social.type}
           href={social.url}
-          target="_black"
+          target="_blank"
+          rel="noopener noreferrer"
           icon={social.icon}
         />
       ))}
@@ -64,7 +65,12 @@ const SocialButton: React.FC<ItemInterface> = (item) => {
 const DownloadButton: React.FC<ItemInterface> = (item) => (
   <>
     {item.content.map((content) => (
-      <Button key={content.id} href={content.url} target="_blank">
+      <Button
+        key={content.id}
+        href={content.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {content.title}
       </Button>
     ))}
