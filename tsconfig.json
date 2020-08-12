@@ -27,3 +27,5 @@
     "node_modules"
   ]
 }
+
+// vim:set ft=json5:

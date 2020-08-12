@@ -3,8 +3,15 @@ import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { mediaStyles } from "../components/media";
 
+/**
+ *
+ */
 export default class CustomDocument extends Document {
-  render() {
+  /**
+   *
+   * @return {React.ReactElement}
+   */
+  render(): React.ReactElement {
     return (
       <Html lang="ja-JP">
         <Head>
