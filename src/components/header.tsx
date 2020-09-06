@@ -30,8 +30,8 @@ export const MenuList = [
 ];
 
 const HeaderMobile: React.FC<{
-  title: string | null;
-}> = ({ title }) => {
+  title?: string;
+}> = ({ title = null }) => {
   const [visible, setVisible] = React.useState(false);
 
   const toggle = React.useCallback(() => setVisible(!visible), [

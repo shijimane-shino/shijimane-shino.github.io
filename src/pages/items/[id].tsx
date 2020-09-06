@@ -15,7 +15,6 @@ import {
   faLine,
 } from "@fortawesome/free-brands-svg-icons";
 
-import Header from "../../components/header";
 import Layout from "../../components/layout";
 import Markdown from "../../components/markdown";
 
@@ -116,8 +115,6 @@ const BackgroundImage: React.FC<{
       <Image
         src={props.url}
         style={{
-          left: "50%",
-          minWidth: "50%",
           minHeight: "100vh",
           objectFit: "contain",
         }}
@@ -126,10 +123,12 @@ const BackgroundImage: React.FC<{
     <style jsx>{`
       .header-image {
         position: relative;
+        width: 100%;
         opacity: 0.5;
         height: 0;
         z-index: -1;
         overflow: inherit;
+        left: 50%;
       }
     `}</style>
   </>
@@ -144,20 +143,20 @@ const Item: Next.NextPage<{
     return <ErrorPage statusCode={404} />;
   }
 
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <Layout title={item.title} isHeaderTitleDisplay={false}>
-      <Container>
-        {router.isFallback ? (
-          <div>Loading…</div>
-        ) : (
-          <>
-            {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
-            <ItemHeader {...item} />
-            <Markdown md={item.body.markdown} />
-          </>
-        )}
-      </Container>
-    </Layout>
+    <>
+      {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
+      <Layout title={item.title} isHeaderTitleDisplay={false}>
+        <Container>
+          <ItemHeader {...item} />
+          <Markdown md={item.body.markdown} />
+        </Container>
+      </Layout>
+    </>
   );
 };
 
