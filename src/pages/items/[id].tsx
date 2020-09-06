@@ -145,14 +145,13 @@ const Item: Next.NextPage<{
   }
 
   return (
-    <Layout title={item.title} isHeader={false}>
+    <Layout title={item.title} isHeaderTitleDisplay={false}>
       <Container>
         {router.isFallback ? (
           <div>Loading…</div>
         ) : (
           <>
             {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
-            <Header title={null} />
             <ItemHeader {...item} />
             <Markdown md={item.body.markdown} />
           </>

@@ -8,9 +8,16 @@ import Footer from "./footer";
 const Layout: React.FC<{
   children?: React.ReactNode;
   title?: string;
+  isHeaderTitleDisplay?: boolean;
   isHeader?: boolean;
   isFooter?: boolean;
-}> = ({ children, title = null, isHeader = true, isFooter = true }) => (
+}> = ({
+  children,
+  title = null,
+  isHeaderTitleDisplay = true,
+  isHeader = true,
+  isFooter = true,
+}) => (
   <div className="container">
     <Head>
       <title>
@@ -18,7 +25,7 @@ const Layout: React.FC<{
         {process.env.TITLE}
       </title>
     </Head>
-    {isHeader && <Header title={title} />}
+    {isHeader && <Header title={isHeaderTitleDisplay ? title : null} />}
     <div className="content">{children}</div>
     {isFooter && <Footer />}
     <style jsx>{`
