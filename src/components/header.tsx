@@ -45,21 +45,23 @@ const HeaderMobile: React.FC<{
     <>
       <Menu text size="large" style={{ margin: "0 1em", height: "10rem" }}>
         <Container>
-          {title && (
-            <H as="h1" style={{ margin: 0, lineHeight: "10rem" }}>
-              {title}
-            </H>
-          )}
-          <Menu.Item position="right">
+          <Menu.Item position="left">
             <Icon name="sidebar" onClick={toggle} />
           </Menu.Item>
+          {title && (
+            <Menu.Item position="right">
+              <H as="h1" style={{ margin: 0, lineHeight: "10rem" }}>
+                {title}
+              </H>
+            </Menu.Item>
+          )}
         </Container>
       </Menu>
       <Sidebar
         as={Menu}
         visible={visible}
         animation="overlay"
-        direction="right"
+        direction="left"
         onHide={close}
         vertical
       >
