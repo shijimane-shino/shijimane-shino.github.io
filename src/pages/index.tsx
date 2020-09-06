@@ -8,10 +8,10 @@ import { Header as H, Menu, Button, Image } from "semantic-ui-react";
 import { Pickup as PickupInterface } from "../interfaces/pickup";
 
 import { MenuList } from "../components/header";
-import Footer from "../components/footer";
 import Layout from "../components/layout";
 
 import { getAllPickups } from "../lib/graphcms";
+import CopyRight from "../lib/copyright";
 
 const TopHeader: React.FC<{
   pickups: PickupInterface[];
@@ -56,6 +56,7 @@ const TopHeader: React.FC<{
           ))}
         </div>
       </div>
+      <div className="copyright">{CopyRight}</div>
     </div>
     <style jsx>{`
       .container {
@@ -79,6 +80,10 @@ const TopHeader: React.FC<{
       }
 
       .pickup-list {
+        margin: 1em 0 0;
+      }
+
+      .copyright {
         margin: 1em 0 0;
       }
     `}</style>
@@ -119,7 +124,6 @@ const Index: Next.NextPage<{
     <section className="container">
       <BackgroundImage url="https://media.graphcms.com/zgzHeR1RcWcTQsGr49Ba" />
       <TopHeader pickups={pickups} />
-      <Footer />
     </section>
     <style jsx>{`
       .container {
