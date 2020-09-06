@@ -136,7 +136,7 @@ const Index: Next.NextPage<{
   </Layout>
 );
 
-export const getStaticProps: Next.GetStaticProps = async (context) => {
+export const getStaticProps: Next.GetStaticProps = async () => {
   return {
     props: {
       pickups: await getAllPickups(),

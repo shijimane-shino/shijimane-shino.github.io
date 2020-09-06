@@ -30,7 +30,7 @@ export const MenuList = [
 ];
 
 const HeaderMobile: React.FC<{
-  title?: string;
+  title: string | null;
 }> = ({ title = null }) => {
   const [visible, setVisible] = React.useState(false);
 

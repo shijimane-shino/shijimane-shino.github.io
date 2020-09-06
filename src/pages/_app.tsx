@@ -5,7 +5,7 @@ import Head from "next/head";
 
 import "semantic-ui-css/semantic.min.css";
 
-const App = ({ Component, pageProps }: AppProps) => (
+const App = ({ Component, pageProps }: AppProps): React.ReactElement => (
   <>
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />

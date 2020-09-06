@@ -38,7 +38,7 @@ const Download: Next.NextPage<{
   </Layout>
 );
 
-export const getStaticProps: Next.GetStaticProps = async (context) => {
+export const getStaticProps: Next.GetStaticProps = async () => {
   return {
     props: {
       items: await getAllItems(),
