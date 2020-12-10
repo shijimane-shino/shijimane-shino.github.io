@@ -1,11 +1,10 @@
-import * as React from "react";
-
+import React from "react";
 import { Header } from "semantic-ui-react";
-import { TermsOfUse as TermsOfUseInterface } from "../interfaces/termsOfUse";
 
-import Markdown from "./markdown";
+import * as graphcms from "../utils/graphcms";
+import Markdown from "./Markdown";
 
-const Tos: React.FunctionComponent<TermsOfUseInterface> = (props) => (
+const TermsOfUse: React.FC<graphcms.api.TermsOfUse> = (props) => (
   <>
     <Header as="h2">{props.title}</Header>
     <div className="content">
@@ -19,4 +18,4 @@ const Tos: React.FunctionComponent<TermsOfUseInterface> = (props) => (
   </>
 );
 
-export default Tos;
+export default TermsOfUse;

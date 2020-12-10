@@ -1,7 +1,5 @@
-import * as React from "react";
-
+import React from "react";
 import { Card, Image, Label, Button } from "semantic-ui-react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -12,11 +10,11 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 
-import { Credit as CreditInterface } from "../interfaces/credit";
-import { CreditWork as CreditWorkInterface } from "../interfaces/creditWork";
-import { CreditLink as CreditLinkInterface } from "../interfaces/creditLink";
+import * as graphcms from "../utils/graphcms";
 
-const iconList = {
+const iconList: {
+  [key in graphcms.api.LinkCategory]: JSX.Element;
+} = {
   twitter: <FontAwesomeIcon icon={faTwitter} color="#1da1f2" />,
   niconico: (
     <svg viewBox="0 0 32 33" style={{ fill: "#000", width: "1em" }}>
@@ -36,7 +34,7 @@ const iconList = {
 };
 
 const WorkLabelList: React.FC<{
-  works: CreditWorkInterface[];
+  works: graphcms.api.Work[];
 }> = ({ works }) => (
   <Label.Group>
     {works.map((work) => (
@@ -46,7 +44,7 @@ const WorkLabelList: React.FC<{
 );
 
 const LinkLabelList: React.FC<{
-  links: CreditLinkInterface[];
+  links: graphcms.api.Link[];
 }> = ({ links }) => (
   <>
     {links.map((link) => (
@@ -63,7 +61,7 @@ const LinkLabelList: React.FC<{
   </>
 );
 
-const CreditCard: React.FC<CreditInterface> = (props) => (
+const StaffCard: React.FC<graphcms.api.Staff> = (props) => (
   <Card style={{ width: "100%", height: "100%" }}>
     <Card.Content textAlign="center">
       <Image src={props.avatar} size="small" circular />
@@ -78,4 +76,4 @@ const CreditCard: React.FC<CreditInterface> = (props) => (
   </Card>
 );
 
-export default CreditCard;
+export default StaffCard;

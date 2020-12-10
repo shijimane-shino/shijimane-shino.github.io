@@ -1,12 +1,7 @@
-import * as React from "react";
-
+import React from "react";
+import * as Next from "next";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import * as Next from "next";
-
-import { Item as ItemInterface } from "../../interfaces/item";
-
-import { Container, Header as H, Button, Image } from "semantic-ui-react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,12 +10,12 @@ import {
   faLine,
 } from "@fortawesome/free-brands-svg-icons";
 
-import Layout from "../../components/layout";
-import Markdown from "../../components/markdown";
+import * as graphcms from "../../utils/graphcms";
+import { Container, Header as H, Button, Image } from "semantic-ui-react";
+import Layout from "../../components/Layout";
+import Markdown from "../../components/Markdown";
 
-import { getAllItems, getItem } from "../../lib/graphcms";
-
-const SocialButton: React.FC<ItemInterface> = (item) => {
+const SocialButton: React.FC<graphcms.api.Item> = (item) => {
   const socialList = [
     {
       type: "twitter",
@@ -61,7 +56,7 @@ const SocialButton: React.FC<ItemInterface> = (item) => {
   );
 };
 
-const DownloadButton: React.FC<ItemInterface> = (item) => (
+const DownloadButton: React.FC<graphcms.api.Item> = (item) => (
   <>
     {item.content.map((content) => (
       <Button
@@ -76,7 +71,7 @@ const DownloadButton: React.FC<ItemInterface> = (item) => (
   </>
 );
 
-const ItemHeader: React.FC<ItemInterface> = (item) => (
+const ItemHeader: React.FC<graphcms.api.Item> = (item) => (
   <>
     <div className="header-container">
       <H as="h1">{item.title}</H>
@@ -122,10 +117,12 @@ const BackgroundImage: React.FC<{
     </div>
     <style jsx>{`
       .header-image {
-        position: relative;
+        position: fixed;
+        top: 0;
+        right: 0;
         width: 100%;
-        opacity: 0.5;
         height: 0;
+        opacity: 0.5;
         z-index: -1;
         overflow: inherit;
         left: 50%;
@@ -135,7 +132,7 @@ const BackgroundImage: React.FC<{
 );
 
 const Item: Next.NextPage<{
-  item: ItemInterface | null;
+  item: graphcms.api.Item | null;
 }> = ({ item }) => {
   const router = useRouter();
 
@@ -149,8 +146,8 @@ const Item: Next.NextPage<{
 
   return (
     <>
-      {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
       <Layout title={item.title} isHeaderTitleDisplay={false}>
+        {item.thumbnail && <BackgroundImage url={item.thumbnail.url} />}
         <Container>
           <ItemHeader {...item} />
           <Markdown md={item.body.markdown} />
@@ -162,26 +159,27 @@ const Item: Next.NextPage<{
 
 export const getStaticProps: Next.GetStaticProps = async (context) => {
   const id: string | undefined = context.params?.id as string;
-  const data = id ? await getItem(id) : null;
 
   return {
     props: {
-      item: data,
+      item: id
+        ? await graphcms.api.item({
+            where: {
+              id: id,
+            },
+          })
+        : null,
     },
   };
 };
 
-export const getStaticPaths: Next.GetStaticPaths = async () => {
-  const data = await getAllItems();
-
-  return {
-    paths: data.map(({ id }) => ({
-      params: {
-        id,
-      },
-    })),
-    fallback: false,
-  };
-};
+export const getStaticPaths: Next.GetStaticPaths = async () => ({
+  paths: (await graphcms.api.items()).map(({ id }) => ({
+    params: {
+      id,
+    },
+  })),
+  fallback: false,
+});
 
 export default Item;

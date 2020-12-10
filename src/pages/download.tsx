@@ -1,17 +1,15 @@
-import * as React from "react";
+import React from "react";
 import * as Next from "next";
 
 import { Container } from "semantic-ui-react";
 
-import { Item as ItemInterface } from "../interfaces/item";
+import Layout from "../components/Layout";
+import ItemCard from "../components/ItemCard";
 
-import Layout from "../components/layout";
-import ItemCard from "../components/itemCard";
-
-import { getAllItems } from "../lib/graphcms";
+import * as graphcms from "../utils/graphcms";
 
 const Download: Next.NextPage<{
-  items: ItemInterface[];
+  items: graphcms.api.Item[];
 }> = ({ items }) => (
   <Layout title="Download">
     <Container>
@@ -38,12 +36,12 @@ const Download: Next.NextPage<{
   </Layout>
 );
 
-export const getStaticProps: Next.GetStaticProps = async () => {
-  return {
-    props: {
-      items: await getAllItems(),
-    },
-  };
-};
+export const getStaticProps: Next.GetStaticProps = async () => ({
+  props: {
+    items: await graphcms.api.items({
+      orderBy: graphcms.api.ItemOrderByInput.updatedAt_DESC,
+    }),
+  },
+});
 
 export default Download;

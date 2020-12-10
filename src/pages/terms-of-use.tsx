@@ -1,35 +1,33 @@
-import * as React from "react";
+import React from "react";
 import * as Next from "next";
 
 import { Container } from "semantic-ui-react";
 
-import { TermsOfUse as TermsOfUseInterface } from "../interfaces/termsOfUse";
+import Layout from "../components/Layout";
+import * as Tos from "../components/TermsOfUse";
 
-import Layout from "../components/layout";
-import Tos from "../components/tos";
-
-import { getAllTermsOfUses } from "../lib/graphcms";
+import * as graphcms from "../utils/graphcms";
 
 const TermsOfUse: Next.NextPage<{
-  termsOfUses: TermsOfUseInterface[];
+  termsOfUses: graphcms.api.TermsOfUse[];
 }> = ({ termsOfUses }) => (
   <Layout title="Terms of Use">
     <Container>
       {termsOfUses.map((tos) => (
         <div className="content" key={tos.id}>
-          <Tos {...tos} />
+          <Tos.default {...tos} />
         </div>
       ))}
     </Container>
   </Layout>
 );
 
-export const getStaticProps: Next.GetStaticProps = async () => {
-  return {
-    props: {
-      termsOfUses: await getAllTermsOfUses(),
-    },
-  };
-};
+export const getStaticProps: Next.GetStaticProps = async () => ({
+  props: {
+    termsOfUses: await graphcms.api.termsOfUses({
+      orderBy: graphcms.api.TermsOfUseOrderByInput.sort_ASC,
+    }),
+  },
+});
 
 export default TermsOfUse;

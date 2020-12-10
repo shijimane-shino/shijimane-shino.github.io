@@ -1,12 +1,12 @@
-import * as React from "react";
+import React from "react";
 import * as Next from "next";
 
 import Link from "next/link";
 import { Image, Button } from "semantic-ui-react";
 
-import Layout from "../components/layout";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Layout from "../components/Layout";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Error: Next.NextPage = () => (
   <Layout title="Error!" isHeader={false} isFooter={false}>

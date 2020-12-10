@@ -1,20 +1,18 @@
-import * as React from "react";
+import React from "react";
 import * as Next from "next";
 
 import Link from "next/link";
 
 import { Header as H, Menu, Button, Image } from "semantic-ui-react";
 
-import { Pickup as PickupInterface } from "../interfaces/pickup";
+import { MenuList } from "../components/Header";
+import Layout from "../components/Layout";
 
-import { MenuList } from "../components/header";
-import Layout from "../components/layout";
-
-import { getAllPickups } from "../lib/graphcms";
-import CopyRight from "../lib/copyright";
+import * as graphcms from "../utils/graphcms";
+import CopyRight from "../utils/copyright";
 
 const TopHeader: React.FC<{
-  pickups: PickupInterface[];
+  pickups: graphcms.api.Pickup[];
 }> = ({ pickups }) => (
   <>
     <div className="container">
@@ -118,11 +116,12 @@ const BackgroundImage: React.FC<{
 );
 
 const Index: Next.NextPage<{
-  pickups: PickupInterface[];
-}> = ({ pickups }) => (
+  background: graphcms.api.Asset;
+  pickups: graphcms.api.Pickup[];
+}> = ({ background, pickups }) => (
   <Layout isHeader={false} isFooter={false}>
     <section className="container">
-      <BackgroundImage url="https://media.graphcms.com/zgzHeR1RcWcTQsGr49Ba" />
+      <BackgroundImage url={background.url} />
       <TopHeader pickups={pickups} />
     </section>
     <style jsx>{`
@@ -136,12 +135,17 @@ const Index: Next.NextPage<{
   </Layout>
 );
 
-export const getStaticProps: Next.GetStaticProps = async () => {
-  return {
-    props: {
-      pickups: await getAllPickups(),
-    },
-  };
-};
+export const getStaticProps: Next.GetStaticProps = async () => ({
+  props: {
+    background: await graphcms.api.asset({
+      where: {
+        id: "ckdn3ypuw13f00187r2ubp8eg",
+      },
+    }),
+    pickups: await graphcms.api.pickups({
+      orderBy: graphcms.api.PickupOrderByInput.updatedAt_DESC,
+    }),
+  },
+});
 
 export default Index;
