@@ -38,13 +38,13 @@ export const getStaticProps: Next.GetStaticProps = async () => ({
       where: {
         author: true,
       },
-      orderBy: graphcms.api.StaffOrderByInput.name_ASC,
+      orderBy: graphcms.api.StaffOrderByInput.name_DESC,
     }),
     staffs: await graphcms.api.staffs({
       where: {
         author: false,
       },
-      orderBy: graphcms.api.StaffOrderByInput.name_ASC,
+      orderBy: graphcms.api.StaffOrderByInput.name_DESC,
     }),
   },
 });
