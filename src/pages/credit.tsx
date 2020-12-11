@@ -1,7 +1,7 @@
 import React from "react";
 import * as Next from "next";
 
-import { Container, Grid } from "semantic-ui-react";
+import { Container, Card } from "semantic-ui-react";
 
 import Layout from "../components/Layout";
 import StaffCard from "../components/StaffCard";
@@ -14,20 +14,17 @@ const Credit: Next.NextPage<{
 }> = ({ authors, staffs }) => (
   <Layout title="Credit">
     <Container>
-      <Grid relaxed columns={1}>
+      <Card.Group itemsPerRow={1}>
         {authors.map((author) => (
-          <Grid.Column key={author.id}>
-            <StaffCard {...author} />
-          </Grid.Column>
+          <StaffCard key={author.id} {...author} />
         ))}
-      </Grid>
-      <Grid relaxed columns={2}>
+      </Card.Group>
+
+      <Card.Group itemsPerRow={2}>
         {staffs.map((staff) => (
-          <Grid.Column key={staff.id}>
-            <StaffCard {...staff} />
-          </Grid.Column>
+          <StaffCard key={staff.id} {...staff} />
         ))}
-      </Grid>
+      </Card.Group>
     </Container>
   </Layout>
 );

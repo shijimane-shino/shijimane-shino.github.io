@@ -4,6 +4,8 @@ import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
 
+import styles from "./Layout.module.css";
+
 const Layout: React.FC<{
   children?: React.ReactNode;
   title?: string;
@@ -17,7 +19,7 @@ const Layout: React.FC<{
   isHeader = true,
   isFooter = true,
 }) => (
-  <div className="container">
+  <div className={styles.container}>
     <Head>
       <title>
         {title && `${title} - `}
@@ -25,23 +27,8 @@ const Layout: React.FC<{
       </title>
     </Head>
     {isHeader && <Header title={isHeaderTitleDisplay ? title : null} />}
-    <div className="content">{children}</div>
+    <div className={styles.content}>{children}</div>
     {isFooter && <Footer />}
-    <style jsx>{`
-      .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        overflow: hidden;
-      }
-
-      .content {
-        flex: 1;
-        position: relative;
-        overflow-wrap: anywhere;
-      }
-    `}</style>
   </div>
 );
 

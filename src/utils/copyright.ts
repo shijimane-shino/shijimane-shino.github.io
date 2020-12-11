@@ -1,9 +1,3 @@
-const CopyRight =
-  "© 2016 - " +
-  new Date().getFullYear() +
-  " " +
-  process.env.AUTHOR +
-  " / " +
-  process.env.TITLE;
-
-export default CopyRight;
+export const Copyright = `© 2016 - ${new Date().getFullYear()} ${
+  process.env.AUTHOR
+} / ${process.env.TITLE}`;

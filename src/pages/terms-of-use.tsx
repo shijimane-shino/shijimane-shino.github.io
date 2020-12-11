@@ -1,6 +1,5 @@
 import React from "react";
 import * as Next from "next";
-
 import { Container } from "semantic-ui-react";
 
 import Layout from "../components/Layout";
@@ -14,9 +13,7 @@ const TermsOfUse: Next.NextPage<{
   <Layout title="Terms of Use">
     <Container>
       {termsOfUses.map((tos) => (
-        <div className="content" key={tos.id}>
-          <Tos.default {...tos} />
-        </div>
+        <Tos.default key={tos.id} {...tos} />
       ))}
     </Container>
   </Layout>

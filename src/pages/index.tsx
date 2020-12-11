@@ -1,137 +1,71 @@
 import React from "react";
 import * as Next from "next";
-
 import Link from "next/link";
+import { Container, Header, List, Button, Image } from "semantic-ui-react";
 
-import { Header as H, Menu, Button, Image } from "semantic-ui-react";
-
-import { MenuList } from "../components/Header";
+import { MenuList } from "../utils/menu";
 import Layout from "../components/Layout";
 
 import * as graphcms from "../utils/graphcms";
-import CopyRight from "../utils/copyright";
+import { Copyright } from "../utils/copyright";
 
-const TopHeader: React.FC<{
-  pickups: graphcms.api.Pickup[];
-}> = ({ pickups }) => (
-  <>
-    <div className="container">
-      <div className="header">
-        <H as="h5" style={{ margin: 0, letterSpacing: "0.25em" }}>
-          UTAU 向け音声ライブラリ
-        </H>
-        <H
-          as="h1"
-          size="huge"
-          style={{ margin: "0.2em 0", fontSize: "5rem", fontWeight: "normal" }}
-        >
-          <span style={{ display: "inline-block" }}>静寂音</span>
-          <span style={{ display: "inline-block" }}>しの</span>
-        </H>
-        <H as="h5" style={{ margin: 0, letterSpacing: "0.5em" }}>
-          Shijimane Shino
-        </H>
-        <div className="link-list">
-          <Menu
-            text
-            size="large"
-            style={{ margin: 0, justifyContent: "center", minHeight: "1em" }}
-          >
-            {MenuList.filter((menu) => menu.href !== "/").map(
-              (menu, index: number) => (
-                <Link key={index} href={menu.href}>
-                  <Menu.Item style={{ padding: "0 1em" }} name={menu.primary} />
-                </Link>
-              )
-            )}
-          </Menu>
-        </div>
-        <div className="pickup-list">
-          {pickups.map((pickup) => (
-            <Button key={pickup.id} href={pickup.url}>
-              {pickup.title}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <div className="copyright">{CopyRight}</div>
-    </div>
-    <style jsx>{`
-      .container {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .header {
-        backdrop-filter: blur(10px);
-        background-color: rgba(250, 250, 250, 0.25);
-        padding: 1em 0;
-      }
-
-      .link-list {
-        margin: 1em 0 0;
-        padding: 1em 0 0;
-        border-top: 1px solid rgb(158, 158, 158);
-      }
-
-      .pickup-list {
-        margin: 1em 0 0;
-      }
-
-      .copyright {
-        margin: 1em 0 0;
-      }
-    `}</style>
-  </>
-);
-
-const BackgroundImage: React.FC<{
-  url: string;
-}> = (props) => (
-  <>
-    <div className="header-image">
-      <Image
-        src={props.url}
-        style={{
-          left: "50%",
-          minWidth: "50%",
-          minHeight: "100vh",
-          objectFit: "contain",
-        }}
-      />
-    </div>
-    <style jsx>{`
-      .header-image {
-        position: relative;
-        opacity: 0.5;
-        height: 0;
-        z-index: -1;
-        overflow: inherit;
-      }
-    `}</style>
-  </>
-);
+import styles from "./index.module.css";
 
 const Index: Next.NextPage<{
   background: graphcms.api.Asset;
   pickups: graphcms.api.Pickup[];
 }> = ({ background, pickups }) => (
   <Layout isHeader={false} isFooter={false}>
-    <section className="container">
-      <BackgroundImage url={background.url} />
-      <TopHeader pickups={pickups} />
-    </section>
-    <style jsx>{`
-      .container {
-        position: relative;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-    `}</style>
+    <Container>
+      <div className={styles.background}>
+        <Image className={styles["background-image"]} src={background.url} />
+      </div>
+      <div className={styles.container}>
+        <div className={styles["title-container"]}>
+          <div className={styles["title-header"]}>
+            <Header as="h1">
+              <Header.Subheader
+                className={styles["title-header-subheading-top"]}
+              >
+                UTAU 向け音声ライブラリ
+              </Header.Subheader>
+              <Header.Content className={styles["title-header-main"]}>
+                <span className={styles["title-header-main-inline"]}>
+                  静寂音
+                </span>
+                <span className={styles["title-header-main-inline"]}>しの</span>
+              </Header.Content>
+              <Header.Subheader
+                className={styles["title-header-subheading-bottom"]}
+              >
+                Shijimane Shino
+              </Header.Subheader>
+            </Header>
+          </div>
+          <div className={styles["link-list"]}>
+            <List horizontal link size="big">
+              {MenuList.filter((menu) => menu.href !== "/").map(
+                (menu, index: number) => (
+                  <Link key={index} href={menu.href}>
+                    <List.Item as="a">{menu.primary}</List.Item>
+                  </Link>
+                )
+              )}
+            </List>
+          </div>
+          <div className={styles["pickup-list"]}>
+            <List horizontal>
+              {pickups.map((pickup) => (
+                <List.Item key={pickup.id}>
+                  <Button href={pickup.url}>{pickup.title}</Button>
+                </List.Item>
+              ))}
+            </List>
+          </div>
+          <div className={styles["copyright"]}>{Copyright}</div>
+        </div>
+      </div>
+    </Container>
   </Layout>
 );
 

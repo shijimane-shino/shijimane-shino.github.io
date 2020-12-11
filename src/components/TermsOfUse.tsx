@@ -3,18 +3,14 @@ import { Header } from "semantic-ui-react";
 
 import * as graphcms from "../utils/graphcms";
 import Markdown from "./Markdown";
+import styles from "./TermsOfUse.module.css";
 
 const TermsOfUse: React.FC<graphcms.api.TermsOfUse> = (props) => (
   <>
     <Header as="h2">{props.title}</Header>
-    <div className="content">
+    <div className={styles.content}>
       <Markdown md={props.body.markdown} />
     </div>
-    <style jsx>{`
-      .content {
-        margin: 0 0 4em 1em;
-      }
-    `}</style>
   </>
 );
 

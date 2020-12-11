@@ -2,6 +2,7 @@ import React from "react";
 import ReactMarkdown from "markdown-to-jsx";
 
 import { Header, List, Table, Image } from "semantic-ui-react";
+import styles from "./Markdown.module.css";
 
 const Markdown: React.FC<{
   md: string;
@@ -91,14 +92,12 @@ const Markdown: React.FC<{
         },
         iframe: {
           component: function inlineframe(props) {
-            return <iframe style={{ maxWidth: "100%" }} {...props} />;
+            return <iframe className={styles.iframe} {...props} />;
           },
         },
         img: {
           component: function image(props) {
-            return (
-              <Image style={{ maxWidth: "100%", height: "auto" }} {...props} />
-            );
+            return <Image className={styles.image} {...props} />;
           },
         },
       },
