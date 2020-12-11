@@ -9,7 +9,9 @@ const HeaderDesktop: React.FC<{
   title: string | null;
 }> = ({ title }) => (
   <Container className={styles.container}>
-    <Header as="h1">{title}</Header>
+    <Header className={styles["header-desktop"]} as="h1">
+      {title}
+    </Header>
     <Menu text size="large">
       <Menu.Menu position="left">
         {MenuList.map((menu, index: number) => (
