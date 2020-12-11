@@ -22,6 +22,7 @@
 }
 
 .title-container {
+	margin: 1em;
 	text-align: center;
 	backdrop-filter: blur(10px);
 	background-color: rgba(250, 250, 250, 0.25);
@@ -29,7 +30,7 @@
 
 .title-header {
 	margin: 0;
-	padding: 1em 2em 0;
+	padding: 1.5em 2em 0;
 }
 
 .title-header-subheading-top {
