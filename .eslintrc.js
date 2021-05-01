@@ -8,8 +8,7 @@ module.exports = {
     "plugin:react/recommended",
     "google",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
+    "prettier",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -26,7 +25,6 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {
-    "prettier/prettier": "error",
     "react/prop-types": 0,
   },
 };
