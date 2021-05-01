@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 import * as graphcms from "../utils/graphcms";
 import { Copyright } from "../utils/copyright";
 
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 
 const Index: Next.NextPage<{
   background: graphcms.api.Asset;

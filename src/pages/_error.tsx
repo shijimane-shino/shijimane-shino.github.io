@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Image, Button } from "semantic-ui-react";
 
 import Layout from "../components/Layout";
-import styles from "./_error.module.css";
+import styles from "./_error.module.scss";
 
 const Error: Next.NextPage = () => (
   <Layout title="Error!" isHeader={false} isFooter={false}>

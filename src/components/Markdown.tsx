@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "markdown-to-jsx";
 
 import { Header, List, Table, Image } from "semantic-ui-react";
-import styles from "./Markdown.module.css";
+import styles from "./Markdown.module.scss";
 
 const Markdown: React.FC<{
   md: string;

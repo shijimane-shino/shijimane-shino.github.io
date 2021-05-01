@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container, Sidebar, Menu, Icon, Header } from "semantic-ui-react";
 
 import { MenuList } from "../utils/menu";
-import styles from "./Header.module.css";
+import styles from "./Header.module.scss";
 
 const HeaderMobile: React.FC<{
   title: string | null;

@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const ESLintPlugin = require("eslint-webpack-plugin");
-
 module.exports = {
   env: {
     TITLE: "静寂音しの",
@@ -10,15 +7,5 @@ module.exports = {
     URL: "http://shijimane-shino.github.io",
     THEME_COLOR: "#01a982",
     TRACKING_ID: "UA-165365751-1",
-  },
-
-  webpack: (config, {}) => {
-    config.plugins.push(
-      new ESLintPlugin({
-        fix: true,
-      })
-    );
-
-    return config;
   },
 };

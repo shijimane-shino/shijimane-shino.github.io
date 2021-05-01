@@ -4,7 +4,7 @@ import { Card, Image } from "semantic-ui-react";
 import moment from "moment/moment";
 
 import { Item as ItemInterface } from "../utils/graphcms/api";
-import styles from "./ItemCard.module.css";
+import styles from "./ItemCard.module.scss";
 
 const ItemCard: React.FC<ItemInterface> = (props) => (
   <Link href={"/items/" + props.id}>

@@ -5,7 +5,7 @@ import LinkLabel from "./LinkLabel";
 import WorkLabel from "./WorkLabel";
 
 import * as graphcms from "../utils/graphcms";
-import styles from "./StaffCard.module.css";
+import styles from "./StaffCard.module.scss";
 
 const StaffCard: React.FC<graphcms.api.Staff> = (props) => (
   <Card>

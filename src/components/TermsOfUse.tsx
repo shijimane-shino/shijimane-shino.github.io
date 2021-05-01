@@ -3,7 +3,7 @@ import { Header } from "semantic-ui-react";
 
 import * as graphcms from "../utils/graphcms";
 import Markdown from "./Markdown";
-import styles from "./TermsOfUse.module.css";
+import styles from "./TermsOfUse.module.scss";
 
 const TermsOfUse: React.FC<graphcms.api.TermsOfUse> = (props) => (
   <>
