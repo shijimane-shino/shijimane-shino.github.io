@@ -1,13 +1,13 @@
 .container {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 .content {
-	flex: 1;
-	position: relative;
-	overflow-wrap: anywhere;
+  flex: 1;
+  position: relative;
+  overflow-wrap: anywhere;
 }
