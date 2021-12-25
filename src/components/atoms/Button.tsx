@@ -6,7 +6,7 @@ type Props = {
   /**
    * What background color to use
    */
-  color?: string;
+  color?: "default" | "primary" | "secondary";
 
   /**
    * Button contents
@@ -20,9 +20,15 @@ type Props = {
 };
 
 const Button: React.VFC<Props> = (props: Props) => {
+  const { color, label, ...attributes } = props;
+
   return (
-    <button className={styles.error} type="button">
-      {props.label}
+    <button
+      className={[styles.container, styles[color || "default"]].join(" ")}
+      type="button"
+      {...attributes}
+    >
+      {label}
     </button>
   );
 };

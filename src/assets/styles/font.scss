@@ -1,0 +1,31 @@
+/**
+ * general
+ */
+
+$font-root: 62.5% $palette-font-family-default;
+$font-body-pc: $palette-font-size-16 $palette-font-family-default;
+$font-body-mobile: $palette-font-size-12 $palette-font-family-default;
+$font-subtext-pc: $palette-font-size-14 $palette-font-family-default;
+$font-subtext-mobile: $palette-font-size-12 $palette-font-family-default;
+
+/**
+ * common
+ */
+
+$font-heading1-pc: $palette-font-weight-bold $palette-font-size-28
+  $palette-font-family-default;
+$font-heading1-mobile: $palette-font-weight-bold $palette-font-size-18
+  $palette-font-family-default;
+$font-heading2-pc: $palette-font-weight-bold $palette-font-size-24
+  $palette-font-family-default;
+$font-heading2-mobile: $palette-font-weight-bold $palette-font-size-16
+  $palette-font-family-default;
+$font-heading3-pc: $palette-font-weight-bold $palette-font-size-20
+  $palette-font-family-default;
+$font-heading3-mobile: $palette-font-weight-bold $palette-font-size-14
+  $palette-font-family-default;
+$font-headline-pc: $palette-font-weight-bold $palette-font-size-16
+  $palette-font-family-default;
+$font-headline-mobile: $palette-font-weight-bold $palette-font-size-12
+  $palette-font-family-default;
+$font-fontawesome: 1em $palette-font-family-fontawesome;

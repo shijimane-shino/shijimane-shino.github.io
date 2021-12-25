@@ -1,0 +1,65 @@
+@import "assets/styles/breakpoint.scss";
+@import "assets/styles/color.scss";
+@import "assets/styles/font.scss";
+
+html {
+  font: $font-root;
+}
+
+body {
+  overscroll-behavior-x: none;
+  line-height: 1.5;
+  color: $color-default-light-text;
+  background-color: $color-default-light;
+
+  @include pc {
+    font: $font-body-pc;
+  }
+
+  @include mobile {
+    font: $font-body-mobile;
+  }
+}
+
+h1 {
+  @include pc {
+    font: $font-heading1-pc;
+  }
+
+  @include mobile {
+    font: $font-heading1-mobile;
+  }
+}
+
+h2 {
+  @include pc {
+    font: $font-heading2-pc;
+  }
+
+  @include mobile {
+    font: $font-heading2-mobile;
+  }
+}
+
+h3 {
+  @include pc {
+    font: $font-heading3-pc;
+  }
+
+  @include mobile {
+    font: $font-heading3-mobile;
+  }
+}
+
+.container {
+  margin: 0 auto;
+
+  @include pc {
+    width: $palette-width-container-pc;
+  }
+
+  @include mobile {
+    width: 100%;
+    max-width: $palette-width-container-mobile;
+  }
+}
