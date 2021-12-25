@@ -9,6 +9,7 @@ module.exports = {
     "plugin:react/recommended",
     "google",
     "prettier",
+    "plugin:storybook/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {

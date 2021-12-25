@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Button.module.scss";
 
-type Props = {
+export type Props = {
   /**
    * What background color to use
    */
