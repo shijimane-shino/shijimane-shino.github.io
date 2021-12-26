@@ -1,0 +1,34 @@
+@import "assets/styles/breakpoint.scss";
+@import "assets/styles/font.scss";
+
+.h1 {
+  font: $font-heading1-pc;
+
+  @include mobile {
+    font: $font-heading1-mobile;
+  }
+}
+
+.h2 {
+  font: $font-heading2-pc;
+
+  @include mobile {
+    font: $font-heading2-mobile;
+  }
+}
+
+.h3 {
+  font: $font-heading3-pc;
+
+  @include mobile {
+    font: $font-heading3-mobile;
+  }
+}
+
+.h4,.h5,.h6 {
+font: $font-body-pc;
+
+  @include mobile {
+font:$font-body-mobile;
+  }
+}

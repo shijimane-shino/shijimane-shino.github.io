@@ -3,12 +3,13 @@
 .container {
   padding: 0.4rem 1.6rem;
   border-radius: 0.4rem;
-  transition: background 0.3s;
+  text-align: center;
 }
 
 .default {
   color: $color-default-main-text;
   background: $color-default-main;
+  transition: background 0.3s;
 
   &:hover {
     background: darken($color-default-main, 20%);
@@ -22,6 +23,7 @@
 .primary {
   color: $color-primary-dark-text;
   background: $color-primary-dark;
+  transition: background 0.3s;
 
   &:hover {
     background: darken($color-primary-dark, 20%);
@@ -35,6 +37,7 @@
 .secondary {
   color: $color-secondary-dark-text;
   background: $color-secondary-dark;
+  transition: background 0.3s;
 
   &:hover {
     background: darken($color-secondary-dark, 20%);

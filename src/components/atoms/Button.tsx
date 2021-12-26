@@ -1,36 +1,55 @@
 import React from "react";
 
 import styles from "./Button.module.scss";
+import Link, { Props as LinkProps } from "components/atoms/Link";
 
 export type Props = {
   /**
-   * What background color to use
+   * 色
    */
   color?: "default" | "primary" | "secondary";
 
   /**
-   * Button contents
+   * ラベル
    */
   label: string;
 
   /**
-   * Optional click handler
+   * クリックハンドラ
    */
   onClick?: () => void;
+
+  /**
+   * リンク
+   */
+  link: LinkProps;
 };
 
 const Button: React.VFC<Props> = (props: Props) => {
-  const { color, label, ...attributes } = props;
+  const { color, label, link, ...attributes } = props;
 
-  return (
-    <button
-      className={[styles.container, styles[color || "default"]].join(" ")}
-      type="button"
-      {...attributes}
-    >
-      {label}
-    </button>
-  );
+  if (link) {
+    return (
+      <Link {...link}>
+        <span
+          className={[styles.container, styles[color || "default"]].join(" ")}
+          {...attributes}
+        >
+          {label}
+        </span>
+      </Link>
+    );
+  } else {
+    return (
+      <button
+        className={[styles.container, styles[color || "default"]].join(" ")}
+        type="button"
+        {...attributes}
+      >
+        {label}
+      </button>
+    );
+  }
 };
 
 export default Button;
